@@ -1,14 +1,14 @@
 ﻿using tabuleiro;
 using System;
-using consoleXadrez.tabuleiro;
+
 
 namespace consoleXadrez
 {
     internal class Tela
     {
-        public static void imprimirTabuleiro(Tabuleiro tab)
+        public static void imprimirTabuleiro(Tabuleiro tab) //método estático
         {
-            for(int i = 0; i<tab.Linhas; i++)
+            for(int i = 0; i<tab.Linhas; i++) //logica para imprimir -
             {
                 for (int j = 0; j < tab.Colunas; j++) 
                 {
@@ -18,10 +18,10 @@ namespace consoleXadrez
                     }
                     else
                     {
-                        Console.Write(tab.peca(i,j) + " ");
+                        Console.Write(tab.peca(i,j) + " "); //em Tabuleiro.cs Peca é private, e em Tabuleiro.cs criamos um método public para ser acessavél 
                     }                    
                 }
-                Console.WriteLine();
+                Console.WriteLine(); //quebrar a linha ao fim do for
             }
         }
     }

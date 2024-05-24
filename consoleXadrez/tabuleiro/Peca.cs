@@ -9,11 +9,12 @@ namespace consoleXadrez.tabuleiro
         public int qteMovimentos { get; protected set; }
         public Tabuleiro Tab {  get; protected set; }
 
-        public Peca(Posicao posicao, Tabuleiro tab, Cor cor)
+        public Peca(Tabuleiro tab, Cor cor) //construtor
         {
-            Posicao = posicao;
+            Posicao = null; //quando cria um tabuleiro, ela nao tem posição, logo é nulo.
             Tab = tab;
             Cor = cor;
+            qteMovimentos = 0;
         }
     }
 }

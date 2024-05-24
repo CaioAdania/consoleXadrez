@@ -5,7 +5,7 @@
         public int Linha { get; set; }
         public int Coluna { get; set; }
 
-        public Posicao(int linha, int coluna)
+        public Posicao(int linha, int coluna) //construtor 
         {
             Linha = linha;
             Coluna = coluna;
