@@ -41,6 +41,19 @@ namespace tabuleiro
             p.Posicao = pos;
         }
 
+        public Peca retirarPeca(Posicao pos)
+        {
+            if(peca(pos) == null) //quer dizer que não tem peça nesta posição
+            {
+                return null;
+            }
+            Peca aux = peca(pos); /*caso chegue aqui, significa que tem alguma peça no lugar da posição informada, logo se houver ela passa a se tornar
+                                  null pois não pode ocupar o mesmo espaço */
+            aux.Posicao = null;
+            pecas[pos.Linha, pos.Coluna] = null; //logo se ela chegar a executar a operação acima, ele retornar ao padrão que é null para não ocupar espaço
+            return aux;
+        }
+
         public bool posicaoValida(Posicao pos) //método para testar se a posição é válida ou não
         {
             if (pos.Linha<0 || pos.Linha>=Linhas || pos.Coluna<0 || pos.Coluna >= Colunas)

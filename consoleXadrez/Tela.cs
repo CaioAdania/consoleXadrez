@@ -1,6 +1,7 @@
 ﻿using tabuleiro;
 using System;
 using consoleXadrez.tabuleiro;
+using xadrez;
 
 
 namespace consoleXadrez
@@ -9,42 +10,74 @@ namespace consoleXadrez
     {
         public static void imprimirTabuleiro(Tabuleiro tab) //método estático
         {
-            for(int i = 0; i<tab.Linhas; i++) //logica para imprimir -
+            for (int i = 0; i < tab.Linhas; i++) //logica para imprimir -
             {
-                Console.Write(8-i + " "); //logica para adicionar os números das linhas
-                for (int j = 0; j < tab.Colunas; j++) 
-                {
-                    if(tab.peca(i, j) == null)
-                    {
-                        Console.Write("- ");
-                    }
-                    else
-                    {
-                        imprimirPeca(tab.peca(i, j)); //instância do static void imprimirTela, para manter o padrão de colores implementado
-                        Console.Write(" ");
-                        
-                        /*Console.Write(tab.peca(i,j) + " "); //em Tabuleiro.cs Peca é private, e em Tabuleiro.cs criamos um método public para ser acessivel 
-                          Referência para lembrar do começo, em que a implementação de um private, era feito por um método público para ser acessivel
-                         */
-                    }                    
+                Console.Write(8 - i + " "); //logica para adicionar os números das linhas
+                for (int j = 0; j < tab.Colunas; j++)
+                {                                                            
+                    imprimirPeca(tab.peca(i, j)); //instância do static void imprimirTela, para manter o padrão de colores implementado                                                                                
                 }
                 Console.WriteLine(); //quebrar a linha ao fim do for
             }
             Console.WriteLine("  a b c d e f g h"); //lógica para imprimir o identificação das colunas
         }
+
+        public static void imprimirTabuleiro(Tabuleiro tab, bool[,] posicoesPossiveis) //método estático sobrecarga
+        {
+            ConsoleColor fundoOriginal = Console.BackgroundColor;
+            ConsoleColor fundoAlterado = ConsoleColor.DarkGray;
+
+            for (int i = 0; i < tab.Linhas; i++) //logica para imprimir -
+            {
+                Console.Write(8 - i + " "); //logica para adicionar os números das linhas
+                for (int j = 0; j < tab.Colunas; j++)
+                {
+                    if (posicoesPossiveis[i, j])
+                    {
+                        Console.BackgroundColor = fundoAlterado;
+                    }
+                    else
+                    {
+                        Console.BackgroundColor = fundoOriginal;
+                    }
+                    imprimirPeca(tab.peca(i, j)); //instância do static void imprimirTela, para manter o padrão de colores implementado
+                    Console.BackgroundColor = fundoOriginal;
+                }
+                Console.WriteLine(); //quebrar a linha ao fim do for
+            }
+            Console.WriteLine("  a b c d e f g h"); //lógica para imprimir o identificação das colunas
+            Console.BackgroundColor = fundoOriginal;
+        }
+
+        public static PosicaoXadrez lerPosicaoXadrez()
+        {
+            string s = Console.ReadLine();
+            char coluna = s[0];
+            int linha = int.Parse(s[1] + "");
+            return new PosicaoXadrez(coluna, linha);
+        }
         public static void imprimirPeca(Peca peca)
         {
-            if(peca.Cor == Cor.Branco)
+            if (peca == null)
             {
-                Console.Write(peca);
+                Console.Write("- ");
             }
             else
-            {
-                ConsoleColor aux = Console.ForegroundColor; /* comando Css, para salvar a cor padrão do background color padrão do console (no caso cinza)*/
-                Console.ForegroundColor = ConsoleColor.Yellow; /* definindo o padrão do background color para yellow*/
-                Console.Write(peca); /* aplicando a cor Yellow, caso a peça seja diferente de Cor.Branco, logo sera impresso na cor Yellow*/
-                Console.ForegroundColor = aux; /* após a aplicação do Yellow, de volta a cor padrão */
+            {                           
+                if (peca.Cor == Cor.Branco)
+                {
+                    Console.Write(peca);
+                }
+                else
+                {
+                    ConsoleColor aux = Console.ForegroundColor; /* comando Css, para salvar a cor padrão do background color padrão do console (no caso cinza)*/
+                    Console.ForegroundColor = ConsoleColor.Yellow; /* definindo o padrão do background color para yellow*/
+                    Console.Write(peca); /* aplicando a cor Yellow, caso a peça seja diferente de Cor.Branco, logo sera impresso na cor Yellow*/
+                    Console.ForegroundColor = aux; /* após a aplicação do Yellow, de volta a cor padrão */
+                }
+                Console.Write(" ");
             }
         }
     }
 }
+
