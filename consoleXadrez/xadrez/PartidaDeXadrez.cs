@@ -222,27 +222,40 @@ namespace xadrez
 
         private void colocarPecas() //Refatoração
         {
-            colocarNovaPeca('c', 1, new Torre(Tab, Cor.Branco));
-            colocarNovaPeca('d', 1, new Rei(Tab, Cor.Branco));
-            colocarNovaPeca('h', 7, new Torre(Tab, Cor.Branco));
+            colocarNovaPeca('a', 1, new Torre(Tab, Cor.Branco));
+            colocarNovaPeca('b', 1, new Cavalo(Tab, Cor.Branco));
+            colocarNovaPeca('c', 1, new Bispo(Tab, Cor.Branco));
+            colocarNovaPeca('d', 1, new Dama(Tab, Cor.Branco));
+            colocarNovaPeca('e', 1, new Rei(Tab, Cor.Branco));
+            colocarNovaPeca('f', 1, new Bispo(Tab, Cor.Branco));
+            colocarNovaPeca('g', 1, new Cavalo(Tab, Cor.Branco));
+            colocarNovaPeca('h', 1, new Torre(Tab, Cor.Branco));
+            colocarNovaPeca('a', 2, new Peao(Tab, Cor.Branco));
+            colocarNovaPeca('b', 2, new Peao(Tab, Cor.Branco));
+            colocarNovaPeca('c', 2, new Peao(Tab, Cor.Branco));
+            colocarNovaPeca('d', 2, new Peao(Tab, Cor.Branco));
+            colocarNovaPeca('e', 2, new Peao(Tab, Cor.Branco));
+            colocarNovaPeca('f', 2, new Peao(Tab, Cor.Branco));
+            colocarNovaPeca('g', 2, new Peao(Tab, Cor.Branco));
+            colocarNovaPeca('h', 2, new Peao(Tab, Cor.Branco));
 
-            colocarNovaPeca('a', 8, new Rei(Tab, Cor.Preto));
-            colocarNovaPeca('b', 8, new Torre(Tab, Cor.Preto));
+            colocarNovaPeca('a', 8, new Torre(Tab, Cor.Preto));
+            colocarNovaPeca('b', 8, new Cavalo(Tab, Cor.Preto));
+            colocarNovaPeca('c', 8, new Bispo(Tab, Cor.Preto));
+            colocarNovaPeca('d', 8, new Dama(Tab, Cor.Preto));
+            colocarNovaPeca('e', 8, new Rei(Tab, Cor.Preto));
+            colocarNovaPeca('f', 8, new Bispo(Tab, Cor.Preto));
+            colocarNovaPeca('g', 8, new Cavalo(Tab, Cor.Preto));
+            colocarNovaPeca('h', 8, new Torre(Tab, Cor.Preto));
+            colocarNovaPeca('a', 7, new Peao(Tab, Cor.Preto));
+            colocarNovaPeca('b', 7, new Peao(Tab, Cor.Preto));
+            colocarNovaPeca('c', 7, new Peao(Tab, Cor.Preto));
+            colocarNovaPeca('d', 7, new Peao(Tab, Cor.Preto));
+            colocarNovaPeca('e', 7, new Peao(Tab, Cor.Preto));
+            colocarNovaPeca('f', 7, new Peao(Tab, Cor.Preto));
+            colocarNovaPeca('g', 7, new Peao(Tab, Cor.Preto));
+            colocarNovaPeca('h', 7, new Peao(Tab, Cor.Preto));
 
-
-            //colocarNovaPeca('c', 1, new Torre(Tab, Cor.Branco));
-            //colocarNovaPeca('c', 2, new Torre(Tab, Cor.Branco));
-            //colocarNovaPeca('d', 2, new Torre(Tab, Cor.Branco));
-            //colocarNovaPeca('e', 2, new Torre(Tab, Cor.Branco));
-            //colocarNovaPeca('e', 1, new Torre(Tab, Cor.Branco));
-            //colocarNovaPeca('d', 1, new Rei(Tab, Cor.Branco));
-
-            //colocarNovaPeca('c', 8, new Torre(Tab, Cor.Preto));
-            //colocarNovaPeca('d', 8, new Rei(Tab, Cor.Preto));
-            //colocarNovaPeca('e', 8, new Torre(Tab, Cor.Preto));
-            //colocarNovaPeca('c', 7, new Torre(Tab, Cor.Preto));
-            //colocarNovaPeca('d', 7, new Torre(Tab, Cor.Preto));
-            //colocarNovaPeca('e', 7, new Torre(Tab, Cor.Preto));
 
             //REFATORADO
             //Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('c',1).toPosicao());
