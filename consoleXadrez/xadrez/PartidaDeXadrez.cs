@@ -10,13 +10,17 @@ namespace xadrez
         public int Turno { get; private set; } //mudança do private para public, porem apenas com get para visualização
         public Cor JogadorAtual { get; private set; } //mudança de private para public, porém apenas com o get para visualização
         public bool Terminada { get; private set; }
+        private HashSet<Peca> Pecas;
+        private HashSet<Peca> Capturadas;
 
-        public PartidaDeXadrez()
+        public PartidaDeXadrez() //predefinições de um começo de jogo
         {
             Tab = new Tabuleiro(8, 8);
             Turno = 1;
             JogadorAtual = Cor.Branco;
             Terminada = false;
+            Pecas = new HashSet<Peca>();
+            Capturadas = new HashSet<Peca>();
             colocarPecas();
         }
 
@@ -26,6 +30,10 @@ namespace xadrez
             p.incrementarQtdMovimentos();
             Peca pecaCapturada = Tab.retirarPeca(destino); //execução apenas se não ouver peça, método criado em Tabuleiro.cs
             Tab.colocarPeca(p, destino);
+            if(pecaCapturada != null) //lógica para adicionar as peças capturadas 
+            {
+                Capturadas.Add(pecaCapturada);
+            }
         }
 
         public void realizaJogada(Posicao origem, Posicao destino) /* inclusão para uma jogada de cada vez entre branco e preto*/
@@ -35,7 +43,7 @@ namespace xadrez
             mudaJogador();
         }
 
-        public void validarPosicaoDeOrigem(Posicao pos)
+        public void validarPosicaoDeOrigem(Posicao pos) //exception 
         {
             if(Tab.peca(pos) == null)
             {
@@ -71,22 +79,69 @@ namespace xadrez
             }
         }
 
-        private void colocarPecas()
+        public HashSet<Peca> pecasCapturadas(Cor cor) //separação de cor para cada peca capturada
         {
-            Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('c',1).toPosicao());
-            Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('c', 2).toPosicao());
-            Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('d', 2).toPosicao());
-            Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('e', 2).toPosicao());
-            Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('e', 1).toPosicao());
-            Tab.colocarPeca(new Rei(Tab, Cor.Branco), new PosicaoXadrez('d', 1).toPosicao());
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach(Peca x in Capturadas)
+            {
+                if(x.Cor == cor)
+                {
+                    aux.Add(x);
+                }
+            }
+            return aux;
+        }
 
-            Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('c', 8).toPosicao());
-            Tab.colocarPeca(new Rei(Tab, Cor.Preto), new PosicaoXadrez('d', 8).toPosicao());
-            Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('e', 8).toPosicao());
-            Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('c', 7).toPosicao());
-            Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('d', 7).toPosicao());
-            Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('e', 7).toPosicao());
+        public HashSet<Peca> pecasEmJogo(Cor cor) 
+        {
+            HashSet<Peca> aux = new HashSet<Peca>();
+            foreach(Peca x in Pecas)
+            {
+                if(x.Cor == cor)
+                {
+                    aux.Add(x);
+                }
+            }
+            aux.ExceptWith(pecasCapturadas(cor));
+            return aux;
+        }
 
+        public void colocarNovaPeca(char coluna, int linha, Peca peca) //método para refatorar
+        {
+            Tab.colocarPeca(peca, new PosicaoXadrez(coluna, linha).toPosicao());
+            Pecas.Add(peca);
+        }
+
+        private void colocarPecas() //Refatoração
+        {
+            colocarNovaPeca('c', 1, new Torre(Tab, Cor.Branco));
+            colocarNovaPeca('c', 2, new Torre(Tab, Cor.Branco));
+            colocarNovaPeca('d', 2, new Torre(Tab, Cor.Branco));
+            colocarNovaPeca('e', 2, new Torre(Tab, Cor.Branco));
+            colocarNovaPeca('e', 1, new Torre(Tab, Cor.Branco));
+            colocarNovaPeca('d', 1, new Rei(Tab, Cor.Branco));
+
+            colocarNovaPeca('c', 8, new Torre(Tab, Cor.Preto));
+            colocarNovaPeca('d', 8, new Rei(Tab, Cor.Preto));
+            colocarNovaPeca('e', 8, new Torre(Tab, Cor.Preto));
+            colocarNovaPeca('c', 7, new Torre(Tab, Cor.Preto));
+            colocarNovaPeca('d', 7, new Torre(Tab, Cor.Preto));
+            colocarNovaPeca('e', 7, new Torre(Tab, Cor.Preto));
+
+            //REFATORADO
+            //Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('c',1).toPosicao());
+            //Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('c', 2).toPosicao());
+            //Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('d', 2).toPosicao());
+            //Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('e', 2).toPosicao());
+            //Tab.colocarPeca(new Torre(Tab, Cor.Branco), new PosicaoXadrez('e', 1).toPosicao());
+            //Tab.colocarPeca(new Rei(Tab, Cor.Branco), new PosicaoXadrez('d', 1).toPosicao());
+
+            //Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('c', 8).toPosicao());
+            //Tab.colocarPeca(new Rei(Tab, Cor.Preto), new PosicaoXadrez('d', 8).toPosicao());
+            //Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('e', 8).toPosicao());
+            //Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('c', 7).toPosicao());
+            //Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('d', 7).toPosicao());
+            //Tab.colocarPeca(new Torre(Tab, Cor.Preto), new PosicaoXadrez('e', 7).toPosicao());
         }
     }
 }
