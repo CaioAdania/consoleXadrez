@@ -22,6 +22,11 @@ namespace consoleXadrez.tabuleiro
             qteMovimentos++;
         }
 
+        public void decrementarQtdMovimentos() 
+        {
+            qteMovimentos--;
+        }
+
         public bool existeMovimentosPossiveis() //introdução de movimentos possiveis, lógica para possiveis movimentos
         {
             bool[,] mat = movimentosPossiveis();

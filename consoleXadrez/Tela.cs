@@ -18,9 +18,13 @@ namespace consoleXadrez
             Console.WriteLine();
             Console.WriteLine("Turno: " + partida.Turno);
             Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+            if (partida.Xeque)
+            {
+                Console.WriteLine("XEQUE!");
+            }
         }
 
-        public static void imprimirPecasCapturadas(PartidaDeXadrez partida) //refatoração para limpar assembly
+        public static void imprimirPecasCapturadas(PartidaDeXadrez partida) //refatoração para limpar assembly e introdução de pecas capturadas
         {
             Console.WriteLine("Peças Capturadas: ");
             Console.Write("Brancas: ");
