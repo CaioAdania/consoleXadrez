@@ -16,6 +16,9 @@ namespace consoleXadrez
                 {
                     Console.Clear();
                     Tela.imprimirTabuleiro(partida.Tab);
+                    Console.WriteLine();
+                    Console.WriteLine("Turno: " + partida.Turno);
+                    Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
 
                     Console.WriteLine();
                     Console.Write("Origem (ch , int): ");
@@ -30,7 +33,7 @@ namespace consoleXadrez
                     Console.Write("Destino (ch , int): ");
                     Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
 
-                    partida.executaMovimento(origem, destino);
+                    partida.realizaJogada(origem, destino);
                 }
                
                 Tela.imprimirTabuleiro(partida.Tab); //instancia de PartidaDeXadrez.cs mudança de private para public para acesso
