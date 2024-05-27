@@ -26,7 +26,7 @@ namespace xadrez
 
             Posicao pos = new Posicao(0, 0);
 
-            pos.definirValores(Posicao.Linha - 1, Posicao.Coluna); //definir movimento do Bispo (norte)
+            pos.definirValores(Posicao.Linha - 1, Posicao.Coluna - 1); //definir movimento do Bispo (norte)
             while (Tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.Linha, pos.Coluna] = true;
