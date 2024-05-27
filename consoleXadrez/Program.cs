@@ -42,14 +42,14 @@ namespace consoleXadrez
                         Console.ReadLine();
                     }
                 }
-
-                Tela.imprimirTabuleiro(partida.Tab); //instancia de PartidaDeXadrez.cs mudança de private para public para acesso
+                Console.Clear();
+                Tela.imprimirPartida(partida);
             }
             catch (TabuleiroException e)
             {
                 Console.WriteLine(e.Message);
             }
-
+            Console.ReadLine();
         }
     }
 }
