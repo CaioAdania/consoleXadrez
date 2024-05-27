@@ -10,32 +10,42 @@ namespace consoleXadrez
         static void Main(string[] args)
         {
             try
-            {                
+            {
                 PartidaDeXadrez partida = new PartidaDeXadrez();
                 while (!partida.Terminada)
                 {
-                    Console.Clear();
-                    Tela.imprimirTabuleiro(partida.Tab);
-                    Console.WriteLine();
-                    Console.WriteLine("Turno: " + partida.Turno);
-                    Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
+                    try
+                    {
+                        Console.Clear();
+                        Tela.imprimirTabuleiro(partida.Tab);
+                        Console.WriteLine();
+                        Console.WriteLine("Turno: " + partida.Turno);
+                        Console.WriteLine("Aguardando jogada: " + partida.JogadorAtual);
 
-                    Console.WriteLine();
-                    Console.Write("Origem (ch , int): ");
-                    Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+                        Console.WriteLine();
+                        Console.Write("Origem (ch , int): ");
+                        Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
+                        partida.validarPosicaoDeOrigem(origem);
 
-                    bool[,] posicoesPossiveis = partida.Tab.peca(origem).movimentosPossiveis();
+                        bool[,] posicoesPossiveis = partida.Tab.peca(origem).movimentosPossiveis();
 
-                    Console.Clear();
-                    Tela.imprimirTabuleiro(partida.Tab, posicoesPossiveis);
+                        Console.Clear();
+                        Tela.imprimirTabuleiro(partida.Tab, posicoesPossiveis);
 
-                    Console.WriteLine();
-                    Console.Write("Destino (ch , int): ");
-                    Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                        Console.WriteLine();
+                        Console.Write("Destino (ch , int): ");
+                        Posicao destino = Tela.lerPosicaoXadrez().toPosicao();
+                        partida.validarPosicaoDeDestino(origem, destino);
 
-                    partida.realizaJogada(origem, destino);
+                        partida.realizaJogada(origem, destino);
+                    }
+                    catch(TabuleiroException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
                 }
-               
+
                 Tela.imprimirTabuleiro(partida.Tab); //instancia de PartidaDeXadrez.cs mudança de private para public para acesso
             }
             catch (TabuleiroException e)

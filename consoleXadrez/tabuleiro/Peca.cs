@@ -22,6 +22,27 @@ namespace consoleXadrez.tabuleiro
             qteMovimentos++;
         }
 
+        public bool existeMovimentosPossiveis() //introdução de movimentos possiveis, lógica para possiveis movimentos
+        {
+            bool[,] mat = movimentosPossiveis();
+            for(int i = 0; i < Tab.Linhas; i++)
+            {
+                for(int j=0; j < Tab.Colunas; j++)
+                {
+                    if (mat[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool podeMoverPara(Posicao pos)
+        {
+            return movimentosPossiveis()[pos.Linha, pos.Coluna];
+        }
+
         public abstract bool[,] movimentosPossiveis(); //definindo para onde cada peça pode se mover, por ser uma categoria generica "Peca" ser amplo, não da pra dizer exatamente qual peça pode o que
         
                        
