@@ -19,6 +19,7 @@ namespace consoleXadrez
                         Console.Clear();
                         Tela.imprimirPartida(partida);
 
+                        Console.WriteLine("Vamos Jogar !");
                         Console.WriteLine();
                         Console.Write("Origem (ch , int): ");
                         Posicao origem = Tela.lerPosicaoXadrez().toPosicao();
